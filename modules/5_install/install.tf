@@ -124,12 +124,21 @@ resource "null_resource" "config" {
     }
 
     provisioner "remote-exec" {
-        inline = [
-            "mkdir -p .openshift",
-            "rm -rf ocp4-helpernode",
-            "echo 'Cloning into ocp4-helpernode...'",
-            "git clone ${var.helpernode_repo} --quiet",
-            "cd ocp4-helpernode && git checkout ${var.helpernode_tag}"
+        inline = [<<EOF
+mkdir -p .openshift
+cd
+rm -rf ocp4-helpernode
+if [[ ${var.helpernode_repo} == *.tar.gz ]]; then
+    echo 'Downloading into ocp4-helpernode...'
+    wget -O helpernode.tar.gz ${var.helpernode_repo}
+    tar -C ocp4-helpernode -xf helpernode.tar.gz
+    rm -f helpernode.tar.gz
+else
+    echo 'Cloning into ocp4-helpernode...'
+    git clone ${var.helpernode_repo} --quiet
+    cd ocp4-helpernode && git checkout ${var.helpernode_tag}
+fi
+EOF
         ]
     }
     provisioner "file" {
@@ -162,11 +171,21 @@ resource "null_resource" "install" {
     }
 
     provisioner "remote-exec" {
-        inline = [
-            "rm -rf ocp4-playbooks",
-            "echo 'Cloning into ocp4-playbooks...'",
-            "git clone ${var.install_playbook_repo} --quiet",
-            "cd ocp4-playbooks && git checkout ${var.install_playbook_tag}"
+        inline = [<<EOF
+cd
+rm -rf ocp4-playbooks
+if [[ ${var.install_playbook_repo} == *.tar.gz ]]
+then
+    echo 'Downloading into ocp4-playbooks...'
+    wget -O install_playbook.tar.gz ${var.install_playbook_repo}
+    tar -C ocp4-playbooks -xf install_playbook.tar.gz
+    rm -f install_playbook.tar.gz
+else
+    echo 'Cloning into ocp4-playbooks...'
+    git clone ${var.install_playbook_repo} --quiet
+    cd ocp4-playbooks && git checkout ${var.install_playbook_tag}
+fi
+EOF
         ]
     }
     provisioner "file" {

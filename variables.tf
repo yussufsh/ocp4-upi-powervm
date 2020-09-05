@@ -209,25 +209,25 @@ variable "installer_log_level" {
 }
 
 variable "helpernode_repo" {
-    description = "Set the repo URL for using ocp4-helpernode"
-    # Repo for running ocp4 helpernode setup steps.
+    description = "Set the Git repo or tar.gz file URL for using ocp4-helpernode"
+    # Repo for running ocp4 installations steps.
     default = "https://github.com/RedHatOfficial/ocp4-helpernode"
 }
 
 variable "helpernode_tag" {
-    description = "Set the branch/tag name or commit# for using ocp4-helpernode repo"
+    description = "Set the branch/tag name or commit# for using ocp4-helpernode repo; Not applicable if the repo is a tar.gz file"
     # Checkout level for https://github.com/RedHatOfficial/ocp4-helpernode which is used for setting up services required on bastion node
     default = "5eab3db53976bb16be582f2edc2de02f7510050d"
 }
 
 variable "install_playbook_repo" {
-    description = "Set the repo URL for using ocp4-playbooks"
+    description = "Set the Git repo or tar.gz file URL for using ocp4-playbooks"
     # Repo for running ocp4 installations steps.
     default = "https://github.com/ocp-power-automation/ocp4-playbooks"
 }
 
 variable "install_playbook_tag" {
-    description = "Set the branch/tag name or commit# for using ocp4-playbooks repo"
+    description = "Set the branch/tag name or commit# for using ocp4-playbooks repo; Not applicable if the repo is a tar.gz file"
     # Checkout level for https://github.com/ocp-power-automation/ocp4-playbooks which is used for running ocp4 installations steps
     default = "f7cd6633901022bdc1b76c5964201439effa5a9a"
 }

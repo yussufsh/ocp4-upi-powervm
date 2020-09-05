@@ -62,6 +62,8 @@ sysctl_tuned_options  = false
 chrony_config = true
 #chrony_config_servers = [ {server = "0.centos.pool.ntp.org", options = "iburst"}, {server = "1.centos.pool.ntp.org", options = "iburst"} ]
 
+# For helpernode and install_playbook
+# Repo can be a URL for a tar.gz file hosted on a web server. Tag option is applicable only for Git repos.
 #helpernode_repo             = "https://github.com/RedHatOfficial/ocp4-helpernode"
 #helpernode_tag = ""
 #install_playbook_repo       = "https://github.com/ocp-power-automation/ocp4-playbooks"
